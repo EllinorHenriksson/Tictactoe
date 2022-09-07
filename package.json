@@ -1,0 +1,20 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "description": "1DV610 - Workshop 1",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EllinorHenriksson/Tictactoe.git"
+  },
+  "contributors": ["Emilia Hansson", "Ellinor Henriksson"],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EllinorHenriksson/Tictactoe/issues"
+  },
+  "homepage": "https://github.com/EllinorHenriksson/Tictactoe#readme"
+}
