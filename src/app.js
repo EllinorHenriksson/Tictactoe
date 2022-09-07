@@ -8,13 +8,10 @@ try {
   console.log('Welcome to the tictactoe app!')
   console.log('--- Game Board ---')
   const gameBoard = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-  console.log(gameBoardRepresentation(gameBoard))
-  
-  const player1 = 'X'
-  const player2 = 'O'
 
-  chooseNumberOnBoard(gameBoard, player1)
+  const startPlayer = 'X'
 
+  chooseNumberOnBoard(gameBoard, startPlayer)
 } catch (error) {
   console.error(error)
 }
@@ -39,29 +36,50 @@ try {
 }
 
 function chooseNumberOnBoard(gameBoard, player) {
+  console.log(gameBoardRepresentation(gameBoard))
+  
   rl.question(`Player ${player}, choose a number on the board: `, async number => {
     console.log(`\nYou chose number ${number}!`)
+
     if (!gameBoard.includes(number)) {
+      // TODO: lägg till om numret inte finns på gameboard
       console.log('Number is taken')
       chooseNumberOnBoard(gameBoard, player)
     } else {
       const index = gameBoard.indexOf(number)
       gameBoard[index] = player
-      // Checks if somebody has won
+
       const winner = checkForWinner(gameBoard)
-
-      if (player === 'X') {
-        player = 'O'
+      if (winner) {
+        presentWinner(winner, gameBoard)
+        rl.close()
+      } else if (isBoardFull(gameBoard)) {
+          console.log('Draw. Noone won!');
+          rl.close()
       } else {
-        player = 'X'
+        if (player === 'X') {
+          player = 'O'
+        } else {
+          player = 'X'
+        }
+        chooseNumberOnBoard(gameBoard, player)
       }
-
-      chooseNumberOnBoard(gameBoard, player)
     }
   })
-  console.log(gameBoardRepresentation(gameBoard))
 }
 
+function isBoardFull (gameBoard) {
+  return gameBoard.every(index => index === 'O' || index === 'X')
+}
+
+function presentWinner(winner, gameBoard) {
+  console.log(gameBoardRepresentation(gameBoard))
+  console.log(`Player ${winner} won!`);
+}
+
+/**
+ * Checks if we have a winner!
+ */
 function checkForWinner(gameBoard) {
   let winner = ''
   if ((gameBoard[0] === gameBoard[1] && gameBoard[0] === gameBoard[2]) 
